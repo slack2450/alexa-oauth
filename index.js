@@ -30,6 +30,20 @@ oauthServer.grant(oauth2orize.grant.code(function(client, redirectURI, user, are
     });
   }));
 
+oauthServer.serializeClient(function(application, done) {
+	done(null, application.id);
+});
+
+oauthServer.deserializeClient(function(id, done) {
+    application = {
+        title: "Name",
+        oauth_id: "ahiotbjmbrtheoj",
+        oauth_secret: "password",
+        domains: ["pitangui.amazon.com", "alexa.amazon.co.jp", "layla.amazon.com", "layla.amazon.co.uk"]
+    }
+    done(null, application)
+});
+
 app.get('/auth/start', oauthServer.authorize(function(applicationID, redirectURI, done){
     console.log("applicationID=" + applicationID)
     console.log("redirectURI=" + redirectURI);
