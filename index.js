@@ -1,11 +1,20 @@
 var fs = require('fs');
 var https = require('https');
 var express = require('express');
+var session = require('express-session');
 var oauth2orize = require('oauth2orize'); 
 
 var app = express();
 
 app.set('view engine', 'pug');
+app.use(session({
+    secret: cookieSecret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: true
+    }
+  }));
 
 var oauthServer = oauth2orize.createServer();
 
