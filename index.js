@@ -6,6 +6,8 @@ var oauth2orize = require('oauth2orize');
 
 var app = express();
 
+const cookieSecret = 'rterhegrhesdf';
+
 app.set('view engine', 'pug');
 app.use(session({
     secret: cookieSecret,
