@@ -31,6 +31,7 @@ oauthServer.grant(oauth2orize.grant.code(function(client, redirectURI, user, are
   }));
 
 oauthServer.serializeClient(function(application, done) {
+    console.log(application);
 	done(null, application.id);
 });
 
