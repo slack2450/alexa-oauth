@@ -1,3 +1,4 @@
+var fs = require('fs');
 var https = require('https');
 var express = require('express');
 var oauth2orize = require('oauth2orize'); 
