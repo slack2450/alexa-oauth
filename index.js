@@ -5,6 +5,8 @@ var oauth2orize = require('oauth2orize');
 
 var app = express();
 
+app.set('view engine', 'pug');
+
 var oauthServer = oauth2orize.createServer();
 
 oauthServer.grant(oauth2orize.grant.code(function(client, redirectURI, user, ares, done) {
@@ -20,7 +22,23 @@ oauthServer.grant(oauth2orize.grant.code(function(client, redirectURI, user, are
 app.get('/auth/start', oauthServer.authorize(function(applicationID, redirectURI, done){
     console.log("applicationID=" + applicationID)
     console.log("redirectURI=" + redirectURI);
-}));
+
+    application = {
+        title: "Name",
+        oauth_id: "ahiotbjmbrtheoj",
+        oauth_secret: "password",
+        domains: ["pitangui.amazon.com", "alexa.amazon.co.jp", "layla.amazon.com", "layla.amazon.co.uk"]
+    }
+
+    done(null, application, redirectURI)
+}), (req, res) => {
+
+    res.render('auth', {
+        transaction_id: req.oauth2.transactionID,
+        scope: req.oauth2.req.scope,
+        application: req.oauth2.client
+    })
+});
 
 var options = {
     key: fs.readFileSync('privkey.pem'),
